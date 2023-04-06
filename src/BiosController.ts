@@ -9,7 +9,7 @@ import {
     Icon,
     Icons,
     MenuButton,
-    UIController, UIRouteLink, UIView, VStack, Text, UIRecordContext, BiosTheme, useBiosTheme
+    UIController, UIRouteLink, UIView, VStack, Text, UIRecordContext, BiosTheme, useBiosTheme, UIRoutes, UIRoute
 } from "@tuval/forms";
 import { RealmDataContext } from "./DataContext";
 import { theme } from "./theme/theme";
@@ -65,9 +65,6 @@ const ComponentBios = () => {
 
 
 export class BiosController extends UIController {
-
-
-
     public override LoadView(): UIView {
         const params: any = new Proxy(new URLSearchParams(window.location.search), {
             get: (searchParams, prop) => searchParams.get(prop as any),
@@ -77,33 +74,15 @@ export class BiosController extends UIController {
 
         if (embeded) {
             return (
-                //Routes()
-                /*VStack(
-                   ...ForEach(Object.keys(Icons))(item=>
-                       Icon(Icons[item]).size(25)
-                   )
-               ) */
-
                 VStack(
                     Desktop('')
                 )
             )
-
-
-
-
         }
 
         return (
-            //Routes()
-            /*VStack(
-               ...ForEach(Object.keys(Icons))(item=>
-                   Icon(Icons[item]).size(25)
-               )
-           ) */
 
             BiosTheme({ thema: theme })(() => {
-
                 return (RealmDataContext(
                     VStack(
                         HStack({ alignment: cLeading })(
@@ -120,25 +99,11 @@ export class BiosController extends UIController {
                             .foregroundColor('white'),
                         HStack({ alignment: cTop })(
                             LeftSidemenu(false),
-                            /*  VStack({ alignment: cTopLeading })(
-                                 HStack(
-                                     UIRouteLink('/app/com.tuvalsoft.app.procetra')(
-                                         Icon(Icons.Activity).size(25)
-                                     )
-                                 ).width(50).height(50).foregroundColor("white")
-                                 ,
-                                 HStack(
-                                     UIRouteLink('/app/com.tuvalsoft.app.organizationmanager')(
-                                         Icon(Icons.AddNewDoc).size(25)
-                                     )
-                                 ).width(50).height(50).foregroundColor("white"),
-                                 MenuButton(),
-                             ).width(50).background('#292F4C'), */
-
                             VStack({ alignment: cTopLeading })(
                                 //DialogContainer(),
                                 HStack(
                                     Desktop('')
+                                    
                                 )
                                     .overflow('hidden')
                                     .cornerRadius(20)
