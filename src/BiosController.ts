@@ -1,4 +1,4 @@
-import { EventBus, is } from "@tuval/core";
+import { EventBus, TCompress, is } from "@tuval/core";
 import {
     cLeading,
     cTop,
@@ -9,12 +9,15 @@ import {
     Icon,
     Icons,
     MenuButton,
-    UIController, UIRouteLink, UIView, VStack, Text, UIRecordContext, BiosTheme, useBiosTheme, UIRoutes, UIRoute
+    UIController, UIRouteLink, UIView, VStack, Text, UIRecordContext, BiosTheme,
+    useBiosTheme, UIRoutes, UIRoute, Button, useState, UIImage
 } from "@tuval/forms";
 import { RealmDataContext } from "./DataContext";
 import { theme } from "./theme/theme";
 import { AppTaskbar } from "./views/AppSelectMenu";
 import { LeftSidemenu } from "./views/LeftSideMenu";
+import html2canvas from 'html2canvas';
+import { SupportDialog } from "./SupportDialog";
 
 export function getAppFullName() {
     try {
@@ -63,9 +66,48 @@ const ComponentBios = () => {
 
 }
 
+function dataURItoBlob(dataURI) {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    var byteString = atob(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to an ArrayBuffer
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    //Old Code
+    //write the ArrayBuffer to a blob, and you're done
+    //var bb = new BlobBuilder();
+    //bb.append(ab);
+    //return bb.getBlob(mimeString);
+
+    //New Code
+    return new Blob([ab], {type: mimeString});
+
+
+}
+
+/* var blob = dataURItoBlob(someDataUrl);
+var fd = new FormData(document.forms[0]);
+var xhr = new XMLHttpRequest();
+
+fd.append("myFile", blob);
+xhr.open('POST', '/', true);
+xhr.send(fd);
+ */
+
 
 export class BiosController extends UIController {
     public override LoadView(): UIView {
+
+        const [screenShut, setScreenShut] = useState(false);
+
         const params: any = new Proxy(new URLSearchParams(window.location.search), {
             get: (searchParams, prop) => searchParams.get(prop as any),
         });
@@ -85,6 +127,25 @@ export class BiosController extends UIController {
             BiosTheme({ thema: theme })(() => {
                 return (RealmDataContext(
                     VStack(
+
+                        HStack(
+                            Button(
+                                Icon(Icons.Add).fontSize(20)
+                            )
+                            .loading(screenShut)
+                            .width(50).height(50)
+                            .cornerRadius('50%')
+                            .onClick(() => {
+                                setScreenShut(true);
+                                html2canvas(document.body).then(function (canvas) {
+                                    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+                                     SupportDialog.Show(image);
+                                    setScreenShut(false);
+                                });
+                            })
+                        ).width().height().position('absolute').right('10px').bottom('10px')
+                        //.tooltip('Create support ticker')
+                        .zIndex(100000),
                         HStack({ alignment: cLeading })(
                             UIRecordContext(({ data }) =>
                                 HStack({ alignment: cLeading })(
@@ -103,7 +164,7 @@ export class BiosController extends UIController {
                                 //DialogContainer(),
                                 HStack(
                                     Desktop('')
-                                    
+
                                 )
                                     .overflow('hidden')
                                     .cornerRadius(20)

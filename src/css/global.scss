@@ -4,6 +4,8 @@
 @import './editor';
 @import './EditableHeading';
 
+@import './normalize.css';
+
 @import './overrides/prime/index.css';
 
 
@@ -60,7 +62,7 @@ body {
   cursor: var(--system-cursor-default), auto;
 
   font-family: var(--font-family);
-
+  font-size: 1rem;
 
   //-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
