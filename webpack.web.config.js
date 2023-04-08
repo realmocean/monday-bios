@@ -17,8 +17,49 @@ const webConfig = {
     devtool: 'source-map',  
     entry: './src/index.tsx',
     externals: {
-        '@tuval/core':'tuval$core',
-        '@tuval/forms':'tuval$forms'
+        '@tuval/core': 'tuval$core',
+        '@tuval/cg': 'tuval$core$graphics',
+        '@tuval/graphics': 'tuval$graphics',
+        '@tuval/gui': 'tuval$gui',
+        '@tuval/forms': 'tuval$forms',
+        '@realmocean/charts': 'realmocean$charts',
+        '@realmocean/codeeditor': 'realmocean$codeeditor',
+        '@realmocean/buttons': 'realmocean$buttons',
+        '@realmocean/calendars': 'realmocean$calendars',
+        '@tuval/components-charts': 'realmocean$charts',
+        '@realmocean/compression': 'realmocean$compression',
+        '@realmocean/core': 'realmocean$core',
+        '@realmocean/data': 'realmocean$data',
+        '@realmocean/diagram': 'realmocean$diagram',
+        '@realmocean/dropdowns': 'realmocean$dropdowns',
+        '@realmocean/excelexport': 'realmocean$excelexport',
+        '@realmocean/filemanager': 'realmocean$filemanager',
+        '@realmocean/fileutils': 'realmocean$fileutils',
+        '@realmocean/grids': 'realmocean$grids',
+        '@realmocean/inputs': 'realmocean$inputs',
+        '@realmocean/layouts': 'realmocean$layouts',
+        '@realmocean/lists': 'realmocean$lists',
+        '@realmocean/navigations': 'realmocean$navigations',
+        '@realmocean/pdfexport': 'realmocean$pdfexport',
+        '@realmocean/popups': 'realmocean$popups',
+        '@realmocean/splitbuttons': 'realmocean$splitbuttons',
+        '@realmocean/svgbase': 'realmocean$svgbase',
+        '@realmocean/query-builder': 'realmocean$query-builder',
+        '@realmocean/spreadsheet': 'realmocean$spreadsheet',
+        '@realmocean/services': 'realmocean$services',
+        '@realmocean/kanban': 'realmocean$kanban',
+        '@realmocean/bpmn': 'realmocean$bpmn',
+
+        '@realmocean/treegrid': 'realmocean$treegrid',
+        '@realmocean/richtexteditor': 'realmocean$richtexteditor',
+        '@realmocean/gantt': 'realmocean$gantt',
+
+        '@realmocean/imageeditor': 'realmocean$imageeditor',
+
+        'react': 'tuval$react',
+        'react-dom/client': 'tuval$react$dom',
+
+
     },
     module: {
         rules: [

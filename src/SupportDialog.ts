@@ -1,6 +1,8 @@
 import { TCompress } from "@tuval/core";
 import { Button, DialogView, EditableHeader, EditableHeadingSizes, Text, EditableHeadingTypes, HStack, Icon, Icons, TabList, UIImage, UIView, VStack, cTopLeading, ViewProperty } from "@tuval/forms";
 
+declare var realmocean$imageeditor;
+
 function dataURItoBlob(dataURI) {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
@@ -75,6 +77,9 @@ export class SupportDialog extends DialogView {
     @ViewProperty()
     image: string;
 
+    @ViewProperty()
+    imageEditor: any;
+
     public constructor() {
         super();
         this.Header = 'Create ticket'
@@ -117,8 +122,13 @@ export class SupportDialog extends DialogView {
                             console.log(new Uint8Array(arrayBuffer));
                         };
                         fileReader.readAsArrayBuffer(blob); */
+                        console.log(this.image)
+                      this.imageEditor.okBtn();
+                        this.imageEditor.toPngUrl().then((url)=> {
+                            console.log(url)
+                        })
 
-                        resizeBase64Img(this.image, 0.5).then((result) => {
+                       /*  resizeBase64Img(this.image, 0.5).then((result) => {
                             this.image = result as any;
 
                             const blob = dataURItoBlob(this.image)
@@ -130,7 +140,7 @@ export class SupportDialog extends DialogView {
                             };
                             fileReader.readAsArrayBuffer(blob);
 
-                        });
+                        }); */
                     })
                 ).allHeight(32),
 
@@ -142,7 +152,12 @@ export class SupportDialog extends DialogView {
                         text: 'Description'
                     }
                 ),
-                UIImage(this.image).height().width('100%')
+                realmocean$imageeditor.UIImageEditor()
+                .self((imageEditor)=> this.imageEditor = imageEditor)
+                .create((imageEditor)=> {
+                    imageEditor.open(this.image)
+                }) 
+               /*  UIImage(this.image).height().width('100%') */
             ).padding()
         )
     }

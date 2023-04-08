@@ -18,6 +18,7 @@ import { AppTaskbar } from "./views/AppSelectMenu";
 import { LeftSidemenu } from "./views/LeftSideMenu";
 import html2canvas from 'html2canvas';
 import { SupportDialog } from "./SupportDialog";
+import { Routes } from "./Routes";
 
 export function getAppFullName() {
     try {
@@ -164,7 +165,7 @@ export class BiosController extends UIController {
                                 //DialogContainer(),
                                 HStack(
                                     Desktop('')
-
+                                  
                                 )
                                     .overflow('hidden')
                                     .cornerRadius(20)
