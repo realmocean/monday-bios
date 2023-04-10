@@ -103,7 +103,7 @@
     },
     "devDependencies": {
         "@realmocean/imageeditor": "^20.3.118",
-        "@realmocean/services": "^21.0.0-beta.5",
+        "@realmocean/services": "^21.0.0-beta.7",
         "@tuval/cg": "^0.0.16",
         "@tuval/core": "^0.0.103",
         "@tuval/forms": "^1.0.1-beta.173",

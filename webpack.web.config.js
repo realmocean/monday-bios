@@ -46,7 +46,7 @@ const webConfig = {
         '@realmocean/svgbase': 'realmocean$svgbase',
         '@realmocean/query-builder': 'realmocean$query-builder',
         '@realmocean/spreadsheet': 'realmocean$spreadsheet',
-        '@realmocean/services': 'realmocean$services',
+        //'@realmocean/services': 'realmocean$services',
         '@realmocean/kanban': 'realmocean$kanban',
         '@realmocean/bpmn': 'realmocean$bpmn',
 

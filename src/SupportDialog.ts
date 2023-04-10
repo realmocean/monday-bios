@@ -1,5 +1,8 @@
-import { TCompress } from "@tuval/core";
-import { Button, DialogView, EditableHeader, EditableHeadingSizes, Text, EditableHeadingTypes, HStack, Icon, Icons, TabList, UIImage, UIView, VStack, cTopLeading, ViewProperty } from "@tuval/forms";
+import { Convert, TCompress } from "@tuval/core";
+import { Button, DialogView, EditableHeader, EditableHeadingSizes, Text, EditableHeadingTypes, HStack, Icon, Icons, TabList, UIImage, UIView, VStack, cTopLeading, ViewProperty, UICreateContext } from "@tuval/forms";
+import { RealmDataContext, RealmOceanDataContext } from "./DataContext";
+import { useSessionService } from "@realmocean/services";
+import { getAppFullName } from "./BiosController";
 
 declare var realmocean$imageeditor;
 
@@ -75,6 +78,12 @@ function resizeBase64Img(base64, scale) {
 
 export class SupportDialog extends DialogView {
     @ViewProperty()
+    title: string;
+
+    @ViewProperty()
+    screenShot: string;
+
+    @ViewProperty()
     image: string;
 
     @ViewProperty()
@@ -102,63 +111,98 @@ export class SupportDialog extends DialogView {
 
     public override LoadView(): UIView {
         return (
-            VStack({ alignment: cTopLeading, spacing: 10 })(
-                HStack({ spacing: 10 })(
-                    EditableHeader()
-                        .placeholder('Enter a subject')
-                        .type(EditableHeadingTypes.h2)
-                        .width('100%'),
-                    Button(
-                        HStack({ spacing: 5 })(
-                            Icon(Icons.Send).fontSize(20),
-                            Text('Send')
-                        )
-                    ).onClick(() => {
-                        /* const blob = dataURItoBlob(this.image)
-                        var arrayBuffer;
-                        var fileReader = new FileReader();
-                        fileReader.onload = function () {
-                            arrayBuffer = this.result;
-                            console.log(new Uint8Array(arrayBuffer));
-                        };
-                        fileReader.readAsArrayBuffer(blob); */
-                        console.log(this.image)
-                      this.imageEditor.okBtn();
-                        this.imageEditor.toPngUrl().then((url)=> {
-                            console.log(url)
-                        })
+            RealmOceanDataContext(
+                UICreateContext((create, isCreating) =>
+                    VStack({ alignment: cTopLeading, spacing: 10 })(
+                        HStack({ spacing: 10 })(
+                            EditableHeader()
+                                .placeholder('Enter a subject')
+                                .type(EditableHeadingTypes.h2)
+                                .width('100%')
+                                .onChange((value) => this.title = value),
+                            Button(
+                                HStack({ spacing: 5 })(
+                                    Icon(Icons.Send).fontSize(20),
+                                    Text('Send')
+                                )
+                            ).onClick(() => {
+                               
+                                /* const blob = dataURItoBlob(this.image)
+                                var arrayBuffer;
+                                var fileReader = new FileReader();
+                                fileReader.onload = function () {
+                                    arrayBuffer = this.result;
+                                    console.log(new Uint8Array(arrayBuffer));
+                                };
+                                fileReader.readAsArrayBuffer(blob); */
+                                console.log(this.image)
+                                this.imageEditor.okBtn();
+                                this.imageEditor.toPngUrl().then((url) => {
+                                   // console.log(url)
+                                    resizeBase64Img(this.image, 0.5).then((result) => {
+                                       // this.image = result as any;
+                                        const self = this;
+                                        const blob = dataURItoBlob(this.image)
+                                        var arrayBuffer;
+                                        var fileReader = new FileReader();
+                                        fileReader.onload = function () {
+                                            arrayBuffer = this.result;
+                                            //debugger
+                                            const screenShot = Convert.ToBase64String(new Uint8Array(arrayBuffer));
+                                            //console.log(TCompress.CompressBytes(new Uint8Array(arrayBuffer)));
 
-                       /*  resizeBase64Img(this.image, 0.5).then((result) => {
-                            this.image = result as any;
+                                            self.SetValue('realm_id', useSessionService().RealmId);
+                                            self.SetValue('tenant_id', useSessionService().TenantId);
+                                            self.SetValue('app_id', getAppFullName());
+                                            self.SetValue('user_id', useSessionService().AccountId);
+                                            self.SetValue('user_name_id', useSessionService().AccountName);
+                                            self.SetValue('title', self.title);
+                                            self.SetValue('description', 'dsfsdf');
+                                            self.SetValue('screen_shot', screenShot);
+                                            
+                                            self.SetValue('statu', 'Open');
+            
+                                            create();
+                                        };
+                                        fileReader.readAsArrayBuffer(blob);
 
-                            const blob = dataURItoBlob(this.image)
-                            var arrayBuffer;
-                            var fileReader = new FileReader();
-                            fileReader.onload = function () {
-                                arrayBuffer = this.result;
-                                console.log(TCompress.CompressBytes(new Uint8Array(arrayBuffer)));
-                            };
-                            fileReader.readAsArrayBuffer(blob);
+                                    });
+                                })
 
-                        }); */
-                    })
-                ).allHeight(32),
+                                /*  resizeBase64Img(this.image, 0.5).then((result) => {
+                                     this.image = result as any;
+         
+                                     const blob = dataURItoBlob(this.image)
+                                     var arrayBuffer;
+                                     var fileReader = new FileReader();
+                                     fileReader.onload = function () {
+                                         arrayBuffer = this.result;
+                                         console.log(TCompress.CompressBytes(new Uint8Array(arrayBuffer)));
+                                     };
+                                     fileReader.readAsArrayBuffer(blob);
+         
+                                 }); */
+                            })
+                        ).allHeight(32),
 
-                TabList(
-                    {
-                        text: 'Screentshot'
-                    },
-                    {
-                        text: 'Description'
-                    }
-                ),
-                realmocean$imageeditor.UIImageEditor()
-                .self((imageEditor)=> this.imageEditor = imageEditor)
-                .create((imageEditor)=> {
-                    imageEditor.open(this.image)
-                }) 
-               /*  UIImage(this.image).height().width('100%') */
-            ).padding()
+                        TabList(
+                            {
+                                text: 'Screentshot'
+                            },
+                            {
+                                text: 'Description'
+                            }
+                        ),
+                        realmocean$imageeditor.UIImageEditor()
+                            .self((imageEditor) => this.imageEditor = imageEditor)
+                            .create((imageEditor) => {
+                                imageEditor.open(this.image)
+                            })
+                        /*  UIImage(this.image).height().width('100%') */
+                    ).padding()
+                ).resource('tickets')
+            )
+
         )
     }
 
