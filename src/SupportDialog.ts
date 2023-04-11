@@ -153,9 +153,10 @@ export class SupportDialog extends DialogView {
 
                                             self.SetValue('realm_id', useSessionService().RealmId);
                                             self.SetValue('tenant_id', useSessionService().TenantId);
+                                            self.SetValue('tenant_name', useSessionService().TenantName);
                                             self.SetValue('app_id', getAppFullName());
                                             self.SetValue('user_id', useSessionService().AccountId);
-                                            self.SetValue('user_name_id', useSessionService().AccountName);
+                                            self.SetValue('user_name', useSessionService().AccountName);
                                             self.SetValue('title', self.title);
                                             self.SetValue('description', 'dsfsdf');
                                             self.SetValue('screen_shot', screenShot);

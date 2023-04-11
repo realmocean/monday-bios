@@ -1,5 +1,5 @@
 import { EventBus, instance as container } from '@tuval/core';
-import { StartBios } from '@tuval/forms';
+import { StartBios, Tracker } from '@tuval/forms';
 
 import { BiosController } from './BiosController';
 import { RealmBrokerClient } from './client/RealmBrokerClient';
@@ -36,6 +36,11 @@ window.addEventListener("load", (event) => {
         StateService.SetSessionId(session_info.session_id);
 
         container.register('IStateService', { useValue: StateService });
+
+        Tracker.configure({
+            userId: session_info.account_id,
+            sessionId: session_info.session_id
+        });
 
         StartBios(BiosController);
 
