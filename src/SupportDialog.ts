@@ -41,7 +41,7 @@ function dataURItoBlob(dataURI) {
  */
 function resizeBase64Img(base64, scale) {
     return new Promise((resolve, reject) => {
-        debugger
+
 
 
 
@@ -126,7 +126,7 @@ export class SupportDialog extends DialogView {
                                     Text('Send')
                                 )
                             ).onClick(() => {
-                               
+
                                 /* const blob = dataURItoBlob(this.image)
                                 var arrayBuffer;
                                 var fileReader = new FileReader();
@@ -138,9 +138,9 @@ export class SupportDialog extends DialogView {
                                 console.log(this.image)
                                 this.imageEditor.okBtn();
                                 this.imageEditor.toPngUrl().then((url) => {
-                                   // console.log(url)
+                                    // console.log(url)
                                     resizeBase64Img(this.image, 0.5).then((result) => {
-                                       // this.image = result as any;
+                                        // this.image = result as any;
                                         const self = this;
                                         const blob = dataURItoBlob(this.image)
                                         var arrayBuffer;
@@ -150,19 +150,21 @@ export class SupportDialog extends DialogView {
                                             //debugger
                                             const screenShot = Convert.ToBase64String(new Uint8Array(arrayBuffer));
                                             //console.log(TCompress.CompressBytes(new Uint8Array(arrayBuffer)));
-
+                                         
                                             self.SetValue('realm_id', useSessionService().RealmId);
                                             self.SetValue('tenant_id', useSessionService().TenantId);
                                             self.SetValue('tenant_name', useSessionService().TenantName);
                                             self.SetValue('app_id', getAppFullName());
                                             self.SetValue('user_id', useSessionService().AccountId);
                                             self.SetValue('user_name', useSessionService().AccountName);
+                                            self.SetValue('correlation_id', window['correlationId']);
+                                            self.SetValue('timestamp', new Date());
                                             self.SetValue('title', self.title);
                                             self.SetValue('description', 'dsfsdf');
                                             self.SetValue('screen_shot', screenShot);
-                                            
+
                                             self.SetValue('statu', 'Open');
-            
+
                                             create();
                                         };
                                         fileReader.readAsArrayBuffer(blob);

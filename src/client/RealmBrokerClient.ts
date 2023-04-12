@@ -23,7 +23,7 @@ export namespace RealmBrokerClient {
 
             form.append('user_email', user_email);
             form.append('password', password);
-            debugger;
+          
             HttpClient.Post(ConfigService.GetRealmOceanBrokerUrl() + 'LoginService', form)
                 .then(response => {
                     resolve(response.data.sessionId);

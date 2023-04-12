@@ -5,6 +5,7 @@ import { BiosController } from './BiosController';
 import { RealmBrokerClient } from './client/RealmBrokerClient';
 import './css/global.scss';
 import { StateService } from './StateService';
+import { useSessionService } from '@realmocean/services';
 
 
 (function (history: any) {
@@ -41,6 +42,10 @@ window.addEventListener("load", (event) => {
             userId: session_info.account_id,
             sessionId: session_info.session_id
         });
+
+        
+        Tracker.addMetadata('realm',useSessionService().RealmId);
+        Tracker.addMetadata('tenant',useSessionService().TenantId);
 
         StartBios(BiosController);
 

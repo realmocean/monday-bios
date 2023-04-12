@@ -20,7 +20,7 @@ export class ConfigService {
 
     public static GetErrorMonitorBrokerUrl(): string {
          let url = '';
-         debugger;
+        
          if (is.localhost()) {
              url = 'https://api.apirealm.com/tracker'// 'http://localhost:5002/v1/';
          } else {
