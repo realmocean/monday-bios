@@ -6,6 +6,7 @@ import { RealmBrokerClient } from './client/RealmBrokerClient';
 import './css/global.scss';
 import { StateService } from './StateService';
 import { useSessionService } from '@realmocean/services';
+import { RM } from './metric';
 
 
 (function (history: any) {
@@ -29,6 +30,13 @@ window.onpopstate = (history as any).onpushstate = function (e) {
 };
 
 
+RM.install({
+    token: 'b7ff7is:q6dj3hp',
+    /* ingestUrl: scriptEl.getAttribute("data-rm-ingest"),
+    monitorSelfCalls: !!scriptEl.getAttribute("data-rm-monitor-self"),
+    tags: tags */
+  });
+
 
 window.addEventListener("load", (event) => {
 
@@ -47,6 +55,7 @@ window.addEventListener("load", (event) => {
         Tracker.addMetadata('realm',useSessionService().RealmId);
         Tracker.addMetadata('tenant',useSessionService().TenantId);
 
+       
         StartBios(BiosController);
 
     })
