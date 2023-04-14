@@ -1,6 +1,9 @@
 import { EventObserver } from "./EventObserver";
 import { isWorker, newTimeId, roundToDecimal } from "./utils";
 
+
+//(new Date("2023-04-14T10:57:21.427Z")).setMilliseconds((new Date("2023-04-14T10:57:21.427Z")).getMilliseconds() + 1830);
+
 const SESSION_KEY = '__rm_sid__';
 const SESSION_TIMESTAMP = '__rm_sid_ts__';
 
@@ -9,7 +12,7 @@ export var Session = {
   _sessionId: 0,
   _storageDisabled: false,
 
-  getSessionId() : number {
+  getSessionId(): number {
     // getSessionId is called before other browser compatibility checks, so we
     // need to short-circuit here too.
     if (!self.performance) { return 0; }
@@ -27,7 +30,7 @@ export var Session = {
       this._sessionId = parseInt(localStorage.getItem(SESSION_KEY), 10);
       sessionTimestamp = parseInt(localStorage.getItem(SESSION_TIMESTAMP), 10);
     }
-    catch(e) {
+    catch (e) {
       this._storageDisabled = true;
     }
 
@@ -48,7 +51,7 @@ export var Session = {
         localStorage.setItem(SESSION_KEY, this._sessionId.toString());
         this.refreshSession();
       }
-      catch(e) {
+      catch (e) {
         this._storageDisabled = true;
       }
     }
@@ -60,10 +63,10 @@ export var Session = {
     try {
       localStorage.setItem(SESSION_TIMESTAMP, Date.now().toString());
     }
-    catch(e) { /* localStorage is broken */}
+    catch (e) { /* localStorage is broken */ }
   },
 
-  isSessionExpired(now: number, timestamp: number) : boolean {
+  isSessionExpired(now: number, timestamp: number): boolean {
     const thirtyMinutes = 1_000 * 60 * 30;
 
     if (!timestamp) { return true; }

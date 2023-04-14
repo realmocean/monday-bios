@@ -1,3 +1,4 @@
+import { useSessionService } from "@realmocean/services";
 import { CONSTANTS } from ".";
 import { ApiObserver } from "./ApiObserver";
 import { EventObserver } from "./EventObserver";
@@ -7,6 +8,7 @@ import { ResourceService } from "./ResourceService";
 import { Session } from "./Session";
 import { isFirstPartyUrl, isURLSupported, isWorker, newTimeId, roundToDecimal, truncateUrl } from "./utils";
 import { WebVitalsObserver } from "./WebVitalsObserver";
+import { getAppFullName } from "../BiosController";
 
 const SEND_ENDPOINT_THRESHOLD: number = 10;
 const MAX_ENDPOINT_LIMIT: number = 50;
@@ -17,7 +19,8 @@ export class Agent {
 
   static defaults: any = {
     token: null,
-    ingestUrl: "https://in.requestmetrics.com/v1",
+   // ingestUrl: "https://in.requestmetrics.com/v1",
+    ingestUrl: "/realmocean/tracker:metric",
     monitorSelfCalls: false,
     tags: []
   };
@@ -181,6 +184,14 @@ export class Agent {
     this.endpoints = this.endpoints.concat(this.getEndpointEntries());
 
     var payload = {
+      realm_id: useSessionService().RealmId,
+      tenant_id: useSessionService().TenantId,
+      tenant_name: useSessionService().TenantName,
+      user_id: useSessionService().AccountId,
+      user_name: useSessionService().AccountName,
+      user_session_id: useSessionService().SessionId,
+      app_id: getAppFullName(),
+      userAgent: navigator.userAgent,
       token: this.options.token,
       timeOrigin: new Date(this.timeOrigin).toISOString(),
       timeSent: new Date().toISOString(),
