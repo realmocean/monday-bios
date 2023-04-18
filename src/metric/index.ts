@@ -22,18 +22,18 @@ const sdk = {
   install: (options: any) => {
     try {
       if (sdk.__agent) {
-        console.warn("Request Metrics is already installed.");
+        console.warn("Metrics is already installed.");
         return;
       }
 
       // If we are loaded in Node, or in Server-Side Rendering like NextJS
       if (typeof self === "undefined") {
-        console.warn("Request Metrics does not operate in this environment.");
+        console.warn("Metrics does not operate in this environment.");
         return;
       }
 
       if (!options || !options.token) {
-        console.error("You must provide a token to install Request Metrics.")
+        console.error("You must provide a token to install Metrics.")
         return;
       }
 
