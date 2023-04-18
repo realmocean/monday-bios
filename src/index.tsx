@@ -32,7 +32,7 @@ window.onpopstate = (history as any).onpushstate = function (e) {
 
 RM.install({
     token: 'b7ff7is:h9gq3yy',
-    ingestUrl: 'https://in.requestmetrics.com/v1'
+    //ingestUrl: 'https://in.requestmetrics.com/v1'
     /* ingestUrl: scriptEl.getAttribute("data-rm-ingest"),
     monitorSelfCalls: !!scriptEl.getAttribute("data-rm-monitor-self"),
     tags: tags */
