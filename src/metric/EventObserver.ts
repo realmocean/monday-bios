@@ -1,3 +1,4 @@
+import { EventBus } from "@tuval/core";
 import { Logger } from "./Logger";
 import { Session } from "./Session";
 import { has, isWorker, patch, roundToDecimal, truncate } from "./utils";
@@ -324,5 +325,16 @@ class _EventObserver {
   }
 
 }
+
+EventBus.Default.on('app.loaded', (evt) => {
+ // alert(JSON.stringify(evt))
+    EventObserver.addEvent({
+     name: "app_start",
+     time: roundToDecimal(evt.time),
+     pageUrl: self.location.toString(),
+     referrer: isWorker() ? "" : document.referrer,
+     element: evt.app_name
+   }); 
+})
 
 export const EventObserver = new _EventObserver();
