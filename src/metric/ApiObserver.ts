@@ -1,3 +1,4 @@
+import { getAppFullName } from "../BiosController";
 import { isWorker, patch, roundToDecimal, truncateUrl } from "./utils";
 
 const RM_STATE_NAME = '__rm_state__';
@@ -62,6 +63,7 @@ class _ApiObserver {
           if (startInfo) {
             var completedOn = performance.now();
             var apiEntry = Object.assign(startInfo, {
+              'app_id': getAppFullName(),
               'duration': roundToDecimal(completedOn) - startInfo.startedOn,
               'statusCode': response.status,
               'contentLength': response.headers.get('content-length'),
@@ -114,6 +116,7 @@ class _ApiObserver {
             var startInfo = xhr[RM_STATE_NAME];
             var completedOn = performance.now();
             var apiEntry = Object.assign(startInfo, {
+              'app_id': getAppFullName(),
               'duration': roundToDecimal(completedOn) - startInfo.startedOn,
               'statusCode': xhr.status,
               'url': xhr.responseURL,
