@@ -10,7 +10,7 @@ import {
     Icons,
     MenuButton,
     UIController, UIRouteLink, UIView, VStack, Text, UIRecordContext, BiosTheme,
-    useBiosTheme, UIRoutes, UIRoute, Button, useState, UIImage
+    useBiosTheme, UIRoutes, UIRoute, Button, useState, UIImage, useNavigate, UIWidget, Spacer
 } from "@tuval/forms";
 import { RealmDataContext } from "./DataContext";
 import { theme } from "./theme/theme";
@@ -89,7 +89,7 @@ function dataURItoBlob(dataURI) {
     //return bb.getBlob(mimeString);
 
     //New Code
-    return new Blob([ab], {type: mimeString});
+    return new Blob([ab], { type: mimeString });
 
 
 }
@@ -105,9 +105,21 @@ xhr.send(fd);
 
 
 export class BiosController extends UIController {
+
     public override LoadView(): UIView {
 
         const [screenShut, setScreenShut] = useState(false);
+        const [defaultAppStarted, setDefaultAppStarted] = useState(false);
+
+        const navigate = useNavigate();
+
+        if (!defaultAppStarted && getAppFullName() == null) {
+            setTimeout(() => navigate('/app/com.tuvalsoft.app.stream'), 200)
+
+            setDefaultAppStarted(true)
+        }
+
+
 
         const params: any = new Proxy(new URLSearchParams(window.location.search), {
             get: (searchParams, prop) => searchParams.get(prop as any),
@@ -133,20 +145,20 @@ export class BiosController extends UIController {
                             Button(
                                 Icon(Icons.Add).fontSize(20)
                             )
-                            .loading(screenShut)
-                            .width(50).height(50)
-                            .cornerRadius('50%')
-                            .onClick(() => {
-                                setScreenShut(true);
-                                html2canvas(document.body).then(function (canvas) {
-                                    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
-                                     SupportDialog.Show(image);
-                                    setScreenShut(false);
-                                });
-                            })
+                                .loading(screenShut)
+                                .width(50).height(50)
+                                .cornerRadius('50%')
+                                .onClick(() => {
+                                    setScreenShut(true);
+                                    html2canvas(document.body).then(function (canvas) {
+                                        var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+                                        SupportDialog.Show(image);
+                                        setScreenShut(false);
+                                    });
+                                })
                         ).width().height().position('absolute').right('10px').bottom('10px')
-                        //.tooltip('Create support ticker')
-                        .zIndex(100000),
+                            //.tooltip('Create support ticker')
+                            .zIndex(100000),
                         HStack({ alignment: cLeading })(
                             UIRecordContext(({ data }) =>
                                 HStack({ alignment: cLeading })(
@@ -154,7 +166,13 @@ export class BiosController extends UIController {
                                 ).height().width(600)
                             ).resource('realminfos').filter({ id: 'REALM_NAME' }),
 
-                            AppTaskbar()
+                            AppTaskbar(),
+                            Spacer(),
+                            UIWidget().qn('com.tuvalsoft.widget.digitalclock')
+                                .config({
+                                    title: 'App Starts',
+                                    footer: 'Performence is OK'
+                                })
                         )
                             .fontSize('1.2rem')
                             .height(50).minHeight('50px')
@@ -165,7 +183,7 @@ export class BiosController extends UIController {
                                 //DialogContainer(),
                                 HStack(
                                     Desktop('')
-                                  
+
                                 )
                                     .overflow('hidden')
                                     .cornerRadius(20)

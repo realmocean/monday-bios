@@ -1,5 +1,5 @@
 import { EventBus, is } from "@tuval/core";
-import { cTopLeading, cVertical, ForEach, HStack, ScrollView, Spinner, UIRecordsContext, VStack, Text, RecordsContextClass, UIImage, cTop, UIRouteLink, Button, cLeading, PositionTypes, cCenter, UIRecordContext, Fragment, useTheme, useBiosTheme, TooltipPositions } from "@tuval/forms";
+import { cTopLeading, cVertical, ForEach, HStack, ScrollView, Spinner, UIRecordsContext, VStack, Text, RecordsContextClass, UIImage, cTop, UIRouteLink, Button, cLeading, PositionTypes, cCenter, UIRecordContext, Fragment, useTheme, useBiosTheme, TooltipPositions, UIWidget, cTopTrailing } from "@tuval/forms";
 import { getAppFullName } from "../BiosController";
 import { RealmDataContext, RealmOceanDataContext } from "../DataContext";
 
@@ -7,40 +7,42 @@ import { RealmDataContext, RealmOceanDataContext } from "../DataContext";
 export const runningApps = new Set();
 
 export const AppTaskbar = () => {
-   return ( RealmOceanDataContext(
-        HStack({ spacing: 20 })(
-            ...ForEach(Array.from(runningApps))(appName =>
-                getAppFullName() !== '' ?
-                UIRecordsContext(({ data, total, isLoading }) =>
-                    isLoading ? Fragment() :
-                        VStack({ alignment: cCenter, spacing: 2 })(
+    return (RealmOceanDataContext(
+     
+            HStack({ spacing: 20 })(
+                ...ForEach(Array.from(runningApps))(appName =>
+                    getAppFullName() !== '' ?
+                        UIRecordsContext(({ data, total, isLoading }) =>
+                            isLoading ? Fragment() :
+                                VStack({ alignment: cCenter, spacing: 2 })(
 
-                            UIRouteLink(`/app/${appName}`)(
-                                VStack(
+                                    UIRouteLink(`/app/${appName}`)(
+                                        VStack(
 
-                                    UIImage((is.array(data) && data.length > 0) ? data[0]?.app_icon : '').width(24).height(24)
-                                )
-                                .tooltip(data[0]?.app_display_name)
-                                .tooltipPosition(TooltipPositions.BOTTOM)
-                                    .height(36).width(36)
-                                    .background({ hover: 'rgba(0,0,0,.6)', default: '' })
-                                    .cornerRadius(8)
-                                    .cursor('pointer')
-                            ),
+                                            UIImage((is.array(data) && data.length > 0) ? data[0]?.app_icon : '').width(24).height(24)
+                                        )
+                                            .tooltip(data[0]?.app_display_name)
+                                            .tooltipPosition(TooltipPositions.BOTTOM)
+                                            .height(36).width(36)
+                                            .background({ hover: 'rgba(0,0,0,.6)', default: '' })
+                                            .cornerRadius(8)
+                                            .cursor('pointer')
+                                    ),
 
-                            isLoading ? Fragment() : HStack().width(5).height(5).background('white').cornerRadius('50%')
-                        ).width().height()
-                ).height()
-                    .resource('app-mainstore-settings').filter({ app_qualified_name: appName }) : Fragment(),
-            )
-        ).position(PositionTypes.Absolute)
+                                    isLoading ? Fragment() : HStack().width(5).height(5).background('white').cornerRadius('50%')
+                                ).width().height()
+                        ).height()
+                            .resource('app-mainstore-settings').filter({ app_qualified_name: appName }) : Fragment(),
+                )
+            ).position(PositionTypes.Absolute),
+           
 
     ))
-                                }
+}
 
 
 export const AppSelectMenu = () => {
-   
+
     return (
         RealmDataContext(
             UIRecordsContext(({ data, total, isLoading }) =>
