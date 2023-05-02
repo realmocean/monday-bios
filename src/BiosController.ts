@@ -10,7 +10,7 @@ import {
     Icons,
     MenuButton,
     UIController, UIRouteLink, UIView, VStack, Text, UIRecordContext, BiosTheme,
-    useBiosTheme, UIRoutes, UIRoute, Button, useState, UIImage, useNavigate, UIWidget, Spacer
+    useBiosTheme, UIRoutes, UIRoute, Button, useState, UIImage, useNavigate, UIWidget, Spacer, useParams, DataProtocol
 } from "@tuval/forms";
 import { RealmDataContext } from "./DataContext";
 import { theme } from "./theme/theme";
@@ -19,6 +19,7 @@ import { LeftSidemenu } from "./views/LeftSideMenu";
 import html2canvas from 'html2canvas';
 import { SupportDialog } from "./SupportDialog";
 import { Routes } from "./Routes";
+import { useSessionService } from "@realmocean/services";
 
 export function getAppFullName() {
     try {
@@ -135,71 +136,84 @@ export class BiosController extends UIController {
             )
         }
 
+        const { space_id, folder_id, item_id } = useParams();
+
         return (
+            DataProtocol('com.tuvalsoft.provider.tasks')(() =>
+                BiosTheme({ thema: theme })(() => {
+                    return (RealmDataContext(
+                        VStack(
 
-            BiosTheme({ thema: theme })(() => {
-                return (RealmDataContext(
-                    VStack(
-
-                        HStack(
-                            Button(
-                                Icon(Icons.Add).fontSize(20)
-                            )
-                                .loading(screenShut)
-                                .width(50).height(50)
-                                .cornerRadius('50%')
-                                .onClick(() => {
-                                    setScreenShut(true);
-                                    html2canvas(document.body).then(function (canvas) {
-                                        var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
-                                        SupportDialog.Show(image);
-                                        setScreenShut(false);
-                                    });
-                                })
-                        ).width().height().position('absolute').right('10px').bottom('10px')
-                            //.tooltip('Create support ticker')
-                            .zIndex(100000),
-                        HStack({ alignment: cLeading })(
-                            UIRecordContext(({ data }) =>
-                                HStack({ alignment: cLeading })(
-                                    Text(data?.value + ' | ' + getAppName()).fontSize('1.5rem').padding().whiteSpace('nowrap')
-                                ).height().width(600)
-                            ).resource('realminfos').filter({ id: 'REALM_NAME' }),
-
-                            AppTaskbar(),
-                            Spacer(),
-                            UIWidget().qn('com.tuvalsoft.widget.digitalclock')
-                                .config({
-                                    title: 'App Starts',
-                                    footer: 'Performence is OK'
-                                })
-                        )
-                            .fontSize('1.2rem')
-                            .height(50).minHeight('50px')
-                            .foregroundColor('white'),
-                        HStack({ alignment: cTop })(
-                            LeftSidemenu(false),
-                            VStack({ alignment: cTopLeading })(
-                                //DialogContainer(),
-                                HStack(
-                                    Desktop('')
-
+                            HStack(
+                                Button(
+                                    Icon(Icons.Add).fontSize(20)
                                 )
-                                    .overflow('hidden')
-                                    .cornerRadius(20)
-                            )
-                                .cornerRadius(20)
-                                .background('#F6F7FB')
-                                .overflow('hidden')
-                                .width('100%'),
-                        )
-                            .height('calc(100% - 50px)')
-                    )
-                        .background('var(--main-theme-color)')
-                ))
-            }
+                                    .loading(screenShut)
+                                    .width(50).height(50)
+                                    .cornerRadius('50%')
+                                    .onClick(() => {
+                                        setScreenShut(true);
+                                        html2canvas(document.body).then(function (canvas) {
+                                            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+                                            SupportDialog.Show(image);
+                                            setScreenShut(false);
+                                        });
+                                    })
+                            ).width().height().position('absolute').right('10px').bottom('10px')
+                                //.tooltip('Create support ticker')
+                                .zIndex(100000),
+                            HStack({ alignment: cLeading })(
+                                UIRecordContext(({ data }) =>
+                                    HStack({ alignment: cLeading })(
+                                        Text(data?.value + ' | ' + getAppName()).fontSize('1.5rem').padding().whiteSpace('nowrap')
+                                    ).height().width(600)
+                                ).resource('realminfos').filter({ id: 'REALM_NAME' }),
 
-            )
+                                AppTaskbar(),
+                                Spacer(),
+                                UIWidget().qn('com.tuvalsoft.widget.digitalclock')
+                                    .config({
+                                        title: 'App Starts',
+                                        footer: 'Performence is OK'
+                                    })
+                            )
+                                .fontSize('1.2rem')
+                                .height(50).minHeight('50px')
+                                .foregroundColor('white'),
+                            HStack({ alignment: cTop })(
+                                LeftSidemenu(false),
+                                VStack({ alignment: cTopLeading })(
+                                    //DialogContainer(),
+                                    HStack(
+                                        Desktop('')
+
+                                    )
+                                        .overflow('hidden')
+                                        .cornerRadius(20)
+                                )
+                                    .cornerRadius(20)
+                                    .background('#F6F7FB')
+                                    .overflow('hidden')
+                                    .width('100%'),
+                            )
+                                .height('calc(100% - 50px)')
+                        )
+                            .background('var(--main-theme-color)')
+                    ))
+                }
+
+                )
+            ).config({
+                variables: {
+
+                    tenant_id: useSessionService().TenantId,
+                    account_id: useSessionService().AccountId,
+                    app_id: 'com.tuvalsoft.app.workbench',
+                    space_id: space_id,
+                    folder_id: folder_id,
+                    item_id: item_id
+                }
+            })
 
 
             //.background('#292F4C')
