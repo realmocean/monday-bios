@@ -10,7 +10,7 @@ import {
     Icons,
     MenuButton,
     UIController, UIRouteLink, UIView, VStack, Text, UIRecordContext, BiosTheme,
-    useBiosTheme, UIRoutes, UIRoute, Button, useState, UIImage, useNavigate, UIWidget, Spacer, useParams, DataProtocol
+    useBiosTheme, UIRoutes, UIRoute, Button, useState, UIImage, useNavigate, UIWidget, Spacer, useParams, DataProtocol, BrokerContext
 } from "@tuval/forms";
 import { RealmDataContext } from "./DataContext";
 import { theme } from "./theme/theme";
@@ -139,7 +139,7 @@ export class BiosController extends UIController {
         const { space_id, folder_id, item_id } = useParams();
 
         return (
-            DataProtocol('com.tuvalsoft.provider.tasks')(() =>
+            BrokerContext('com.tuvalsoft.broker.realm')(() =>
                 BiosTheme({ thema: theme })(() => {
                     return (RealmDataContext(
                         VStack(
@@ -171,11 +171,11 @@ export class BiosController extends UIController {
 
                                 AppTaskbar(),
                                 Spacer(),
-                                UIWidget().qn('com.tuvalsoft.widget.digitalclock')
+                               /*  UIWidget().qn('com.tuvalsoft.widget.digitalclock')
                                     .config({
                                         title: 'App Starts',
                                         footer: 'Performence is OK'
-                                    })
+                                    }) */
                             )
                                 .fontSize('1.2rem')
                                 .height(50).minHeight('50px')
@@ -208,10 +208,10 @@ export class BiosController extends UIController {
 
                     tenant_id: useSessionService().TenantId,
                     account_id: useSessionService().AccountId,
-                    app_id: 'com.tuvalsoft.app.workbench',
+                    /* app_id: 'com.tuvalsoft.app.workbench',
                     space_id: space_id,
                     folder_id: folder_id,
-                    item_id: item_id
+                    item_id: item_id */
                 }
             })
 
