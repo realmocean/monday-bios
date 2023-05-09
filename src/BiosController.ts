@@ -206,8 +206,8 @@ export class BiosController extends UIController {
             ).config({
                 variables: {
 
-                    tenant_id: useSessionService().TenantId,
-                    account_id: useSessionService().AccountId,
+                    tenantId: useSessionService().TenantId,
+                    accountId: useSessionService().AccountId,
                     /* app_id: 'com.tuvalsoft.app.workbench',
                     space_id: space_id,
                     folder_id: folder_id,
