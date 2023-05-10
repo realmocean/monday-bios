@@ -108,7 +108,7 @@ xhr.send(fd);
 export class BiosController extends UIController {
 
     public override LoadView(): UIView {
-
+       
         const [screenShut, setScreenShut] = useState(false);
         const [defaultAppStarted, setDefaultAppStarted] = useState(false);
 
@@ -205,7 +205,6 @@ export class BiosController extends UIController {
                 )
             ).config({
                 variables: {
-
                     tenantId: useSessionService().TenantId,
                     accountId: useSessionService().AccountId,
                     /* app_id: 'com.tuvalsoft.app.workbench',
