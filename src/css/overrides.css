@@ -169,3 +169,19 @@ td
     text-align: center; 
     vertical-align: middle;
 }
+
+.tabs--wrapper {
+    padding: 0px !important;
+    
+}
+a.tab-inner.tabs-list_tab-inner {
+    padding: 0px !important;
+}
+li.tab--wrapper.tabs-list_tab--wrapper {
+    height :calc(100% - 2px)  !important;
+    border-bottom: 0px !important;
+}
+
+ul.tabs-list {
+    height: 100% !important;
+}
