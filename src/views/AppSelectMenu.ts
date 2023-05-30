@@ -8,7 +8,7 @@ export const runningApps = new Set();
 
 export const AppTaskbar = () => {
     return (RealmOceanDataContext(
-     
+
             HStack({ spacing: 20 })(
                 ...ForEach(Array.from(runningApps))(appName =>
                     getAppFullName() !== '' ?
@@ -35,7 +35,7 @@ export const AppTaskbar = () => {
                             .resource('app-mainstore-settings').filter({ app_qualified_name: appName }) : Fragment(),
                 )
             ).position(PositionTypes.Absolute),
-           
+
 
     ))
 }
@@ -106,7 +106,7 @@ export const AppSelectMenu = () => {
                                      )
                                  ) */
                             )
-                    ).width(400).height(600)
+                    ).width(400).height(600).padding()
                 ).resource('tenant-default-apps')
             ).resource('realm-default-apps')
         ))
