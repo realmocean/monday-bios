@@ -30,13 +30,13 @@ window.onpopstate = (history as any).onpushstate = function (e) {
 };
 
 
-RM.install({
-    token: 'a2kx9xb:n9iz4ut',
+//RM.install({
+  //  token: 'a2kx9xb:n9iz4ut',
 //    ingestUrl: 'https://in.requestmetrics.com/v1'
     /* ingestUrl: scriptEl.getAttribute("data-rm-ingest"),
     monitorSelfCalls: !!scriptEl.getAttribute("data-rm-monitor-self"),
     tags: tags */
-  });
+ // });
 
 
 window.addEventListener("load", (event) => {
