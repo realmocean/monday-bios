@@ -183,8 +183,13 @@ li.tab--wrapper.tabs-list_tab--wrapper {
     border-bottom: 0px !important;
 }
 
+li.tab--wrapper.tabs-list_tab--wrapper.tab-focus-visible-inset {
+    box-shadow: none;
+}
+
+/*HStack alignment bottom leading yap*/
 ul.tabs-list {
-    height: 80% !important;
+    height: 100% !important;
 }
 
 /* kanban */
