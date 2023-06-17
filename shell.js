@@ -28,5 +28,5 @@ const appName = manifest.application.name;
 
 shell.cp('-Rf', './dist_web/enterprise.bios', './public');
 shell.cp('-Rf', './dist_web/index.js', `./dist_web/${appName}`);
-shell.cp('-Rf', './dist_web/index.js', `../../realm-runtime/src/portal/static/bios/development.bios`);
+shell.cp('-Rf', './dist_web/index.js', `../realm-runtime/src/portal/static/bios/development.bios`);
 

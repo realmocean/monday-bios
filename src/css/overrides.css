@@ -13,6 +13,12 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
     background: white;
+    margin-top: 100px !important;
+    padding-bottom: 45px;
+    max-height: 100%
+}
+.p-dialog-top .p-dialog, .p-dialog-bottom .p-dialog, .p-dialog-left .p-dialog, .p-dialog-right .p-dialog, .p-dialog-top-left .p-dialog, .p-dialog-top-right .p-dialog, .p-dialog-bottom-left .p-dialog, .p-dialog-bottom-right .p-dialog {
+    margin: 0;
 }
 
 .p-dialog .p-dialog-header {
