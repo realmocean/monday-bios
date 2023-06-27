@@ -17,6 +17,16 @@
     padding-bottom: 45px;
     max-height: 100%
 }
+
+.p-dialog:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: 0 0 130px 5px #00000054;
+}
 .p-dialog-top .p-dialog, .p-dialog-bottom .p-dialog, .p-dialog-left .p-dialog, .p-dialog-right .p-dialog, .p-dialog-top-left .p-dialog, .p-dialog-top-right .p-dialog, .p-dialog-bottom-left .p-dialog, .p-dialog-bottom-right .p-dialog {
     margin: 0;
 }
@@ -217,4 +227,20 @@ ul.tabs-list {
 th.e-header-cells.e-template.e-toggle-header div.e-header-wrap {
     height: 100%;
     align-items: center;
+}
+
+.p-fileupload .p-fileupload-content {
+    background: transparent;
+}
+
+.monday-style-menu-title {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 11px;
+    font-weight: 600;
+    flex-grow: 1;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #656f7d;
+    white-space: nowrap;
 }
