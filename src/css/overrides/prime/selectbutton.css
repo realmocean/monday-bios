@@ -1,0 +1,32 @@
+
+
+.p-selectbutton .p-button {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(206, 212, 218);
+    color: rgb(73, 80, 87);
+    transition: background-color 0.2s ease 0s, color 0.2s ease 0s, border-color 0.2s ease 0s, box-shadow 0.2s ease 0s;
+}
+
+.p-selectbutton .p-button.p-highlight {
+    background: rgb(59, 130, 246);
+    border-color: rgb(59, 130, 246);
+    color: rgb(255, 255, 255);
+}
+
+.p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover {
+    background: rgb(233, 236, 239);
+    border-color: rgb(206, 212, 218);
+    color: rgb(73, 80, 87);
+}
+
+.p-button:enabled:hover, .p-button:not(button):not(a):not(.p-disabled):hover {
+    background: rgb(59, 130, 246);
+    color: rgb(255, 255, 255);
+    border-color: rgb(59, 130, 246);
+}
+
+.p-selectbutton .p-button.p-highlight:hover {
+    background: rgb(59, 130, 246);
+    border-color: rgb(59, 130, 246);
+    color: rgb(255, 255, 255);
+}
