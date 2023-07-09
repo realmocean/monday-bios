@@ -13,10 +13,18 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
     background: white;
-    margin-top: 100px !important;
-    padding-bottom: 45px;
     max-height: 100%
 }
+
+.p-confirm-dialog .p-dialog-content  {
+    padding: 20px !important;
+}
+
+.p-dialog-right .p-dialog  {
+     margin-top: 100px !important;
+     padding-bottom: 45px;
+ }
+
 
 .p-dialog:before {
     content: "";
@@ -52,6 +60,10 @@
 
 .p-dialog .p-dialog-content {
     padding: 0px;
+}
+
+.p-dialog .p-dialog-footer {
+    border: none;
 }
 
 .p-overlaypanel:before {
