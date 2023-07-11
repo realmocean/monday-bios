@@ -256,3 +256,8 @@ th.e-header-cells.e-template.e-toggle-header div.e-header-wrap {
     color: #656f7d;
     white-space: nowrap;
 }
+
+.monday-style-toast {
+    max-width: 500px;
+    z-index: 1000;
+}
