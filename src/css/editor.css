@@ -1,5 +1,5 @@
 :root {
-    --editor-max-width: 70%;
+    --editor-max-width: 90%;
     --editor-font-size: 14px;
     --editor-line-height: 1.5;
     --editor-paragraph-spacing: 0rem;
@@ -13,8 +13,19 @@
 
 .ce-paragraph {
     font-size: var(--editor-font-size);
+    font-family: Poppins, sans-serif, Helvetica, Arial;
 }
 
 .codex-editor {
     height: fit-content;
+}
+
+.ce-toolbar__actions {
+    right: 100% !important;
+}
+.ce-toolbar__settings-btn {
+    color: gray !important;
+}
+.ce-toolbar__plus {
+    color: gray !important;
 }
